@@ -1,460 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Profile</title>
+<head>
+    <title>Profile</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap");
+        
+        * {
+            box-sizing: border-box;
+        }
 
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
 
-<style>@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap");
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 10px;
+            font-family: 'DM Sans', sans-serif;
+            transition: background .4s ease-in;
+            background-color: #c394f8;
+        }
+        
+        body.cmg-profile-blue {
+            background-color: #428aa6;
+        }
 
-* {
-  box-sizing: border-box;
-}
+        input.cmg-profile-slider {
+            display: none;
+        }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-}
+        .cmg-profile-card {
+            position: absolute;
+            width: 60%;
+            height: 100%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            transition: transform .4s ease;
+            cursor: pointer;
+        }
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 10px;
-  font-family: 'DM Sans', sans-serif;
-  transition: background .4s ease-in;
-  background-color: #c394f8;
-  
-  &.blue {
-    background-color: #428aa6;
-  }
-}
+        .cmg-profile-container {
+            width: 100%;
+            max-width: 800px;
+            max-height: 600px;
+            height: 100%;
+            transform-style: preserve-3d;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
 
-input[type=radio] {
-  display: none;
-}
+        .cmg-profile-cards {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin-bottom: 20px;
+        }
 
-.card {
-  position: absolute;
-  width: 60%;
-  height: 100%;
-  left: 0;
-  right: 0;
-  margin: auto;
-  transition: transform .4s ease;
-  cursor: pointer;
-}
+        .cmg-profile-card img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
 
-.container {
-  width: 100%;
-  max-width: 800px;
-  max-height: 600px;
-  height: 100%;
-  transform-style: preserve-3d;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
+        #cmg-profile-item-1:checked ~ .cmg-profile-cards #cmg-profile-song-3, 
+        #cmg-profile-item-2:checked ~ .cmg-profile-cards #cmg-profile-song-1, 
+        #cmg-profile-item-3:checked ~ .cmg-profile-cards #cmg-profile-song-2 {
+            transform: translatex(-40%) scale(.8);
+            opacity: .4;
+            z-index: 0;
+        }
 
-.cards {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  margin-bottom: 20px;
-}
+        #cmg-profile-item-1:checked ~ .cmg-profile-cards #cmg-profile-song-2, 
+        #cmg-profile-item-2:checked ~ .cmg-profile-cards #cmg-profile-song-3, 
+        #cmg-profile-item-3:checked ~ .cmg-profile-cards #cmg-profile-song-1 {
+            transform: translatex(40%) scale(.8);
+            opacity: .4;
+            z-index: 0;
+        }
 
-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-}
+        #cmg-profile-item-1:checked ~ .cmg-profile-cards #cmg-profile-song-1, 
+        #cmg-profile-item-2:checked ~ .cmg-profile-cards #cmg-profile-song-2, 
+        #cmg-profile-item-3:checked ~ .cmg-profile-cards #cmg-profile-song-3 {
+            transform: translatex(0) scale(1);
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        #cmg-profile-item-1:checked ~ .cmg-profile-cards #cmg-profile-song-1 img,
+        #cmg-profile-item-2:checked ~ .cmg-profile-cards #cmg-profile-song-2 img,
+        #cmg-profile-item-3:checked ~ .cmg-profile-cards #cmg-profile-song-3 img {
+            box-shadow: 0px 0px 5px 0px rgba(81, 81, 81, 0.47);
+        }
 
-#item-1:checked ~ .cards #song-3, #item-2:checked ~ .cards #song-1, #item-3:checked ~ .cards #song-2 {
-  transform: translatex(-40%) scale(.8);
-  opacity: .4;
-  z-index: 0;
-}
+        .cmg-profile-player {
+            background-color: #fff;
+            border-radius: 8px;
+            min-width: 320px;
+            padding: 16px 10px;
+        }
 
-#item-1:checked ~ .cards #song-2, #item-2:checked ~ .cards #song-3, #item-3:checked ~ .cards #song-1 {
-  transform: translatex(40%) scale(.8);
-  opacity: .4;
-  z-index: 0;
-}
+        .cmg-profile-upper-part {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            height: 36px;
+            overflow: hidden;
+        }
 
-#item-1:checked ~ .cards #song-1, #item-2:checked ~ .cards #song-2, #item-3:checked ~ .cards #song-3 {
-  transform: translatex(0) scale(1);
-  opacity: 1;
-  z-index: 1;
-  
-  img {
-    box-shadow: 0px 0px 5px 0px rgba(81, 81, 81, 0.47);
-  }
-}
+        .cmg-profile-play-icon {
+            margin-right: 12px;
+        }
 
-.player {
-  background-color: #fff;
-  border-radius: 8px;
-  min-width: 320px;
-  padding: 16px 10px;
-}
+        .cmg-profile-song-info {
+            width: calc(100% - 32px);
+            display: block;
+        }
 
-.upper-part {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-  height: 36px;
-  overflow: hidden;
-}
+        .cmg-profile-song-info .cmg-profile-title {
+            color: #403d40;
+            font-size: 14px;
+            line-height: 24px;
+        }
 
-.play-icon
+        .cmg-profile-sub-line {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
 
-.song-info {
-  width: calc(100% - 32px);
-  display: block;
-}
+        .cmg-profile-subtitle, .cmg-profile-time {
+            font-size: 12px;
+            line-height: 16px;
+            color: #c6c5c6;
+        }
 
-.song-info .title {
-  color: #403d40;
-  font-size: 14px;
-  line-height: 24px;
-}
+        .cmg-profile-time {
+            font-size: 12px;
+            line-height: 16px;
+            color: #a5a5a5;
+            font-weight: 500;
+            margin-left: auto;
+        }
 
-.sub-line {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
+        .cmg-profile-progress-bar {
+            height: 3px;
+            width: 100%;
+            background-color: #e9efff;
+            border-radius: 2px;
+            overflow: hidden;
+        }
 
-.subtitle, .time {
-  font-size: 12px;
-  line-height: 16px;
-  color: #c6c5c6;
-}
+        .cmg-profile-progress {
+            display: block;
+            position: relative;
+            width: 60%;
+            height: 100%;
+            background-color: #2992dc;
+            border-radius: 6px;
+        }
 
-.time {
-  font-size: 12px;
-  line-height: 16px;
-  color: #a5a5a5;
-  font-weight: 500;
-  margin-left: auto;
-}
+        .cmg-profile-info-area {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 30px;
+            transition: transform .4s ease-in;
+        }
 
-.progress-bar {
-  height: 3px;
-  width: 100%;
-  background-color: #e9efff;
-  border-radius: 2px;
-  overflow: hidden;
-}
+        #cmg-profile-item-1:checked ~ .cmg-profile-player .cmg-profile-info-area {
+            transform: translateY(0);
+        }
 
-.progress {
-  display: block;
-  position: relative;
-  width: 60%;
-  height: 100%;
-  background-color: #2992dc;
-  border-radius: 6px;
-}
+        #cmg-profile-item-2:checked ~ .cmg-profile-player .cmg-profile-info-area {
+            transform: translateY(-40px);
+        }
 
-.info-area {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 30px;
-  transition: transform .4s ease-in;
-}
+        #cmg-profile-item-3:checked ~ .cmg-profile-player .cmg-profile-info-area {
+            transform: translateY(-80px);
+        }
+    </style>
+    
+    <!-- webmaster tools - https://search.google.com/search-console?utm_source=about-page&resource_id=sc-domain:canyonspringsgolf.com -->
+    <meta name="google-site-verification" content="JqmIsVJmSFByv3QfuNGX_VFv3gJeyqQjXBoA72hmSo8" />
+    
+    <style>
+        .simple-table td.cell {background: none !important;}
+        .simple-table {border: solid #000000 0px !important;}
+        .banner .wsite-multicol:hover {background:#252525;}
+        .callout-box--material {border-radius: 30px;}
+        
+        span.follow-moeg {
+            --color: #fff;
+            --shadow-stroke: 2px;
+            --shadow-stroke-gap: 3;
+            --shadow-rotate: -45deg;
+            --shadow-color: #aaa;
+            position: relative;
+            color: transparent;
+            font-size: 100px;
+            text-align: center;
+            line-height: 160px;
+            font-family: "DM Serif Text", serif;
+            background: repeating-linear-gradient(
+                var(--shadow-rotate),
+                var(--shadow-color),
+                var(--shadow-color) var(--shadow-stroke),
+                transparent var(--shadow-stroke),
+                transparent calc(var(--shadow-stroke) * var(--shadow-stroke-gap))
+            );
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-stroke: 10px;
+        }
+        
+        span.follow-moeg::before {
+            content: "FOLLOW/STREAM";
+            position: absolute;
+            color: transparent;
+            background: var(--color);
+            -webkit-text-stroke: 10px;
+            left: -10px;
+            top: -10px;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+    </style>
+    
+    <link id="wsite-base-style" rel="stylesheet" type="text/css" href="http://cdn11.editmysite.com/css/sites.css?buildtime=1234" />
+    <link rel="stylesheet" type="text/css" href="http://cdn11.editmysite.com/css/old/fancybox.css?buildtime=1234" />
+    <link rel="stylesheet" type="text/css" href="http://cdn11.editmysite.com/css/social-icons.css?buildtime=1234" media="screen,projection" />
+    <link rel="stylesheet" type="text/css" href="files/main_style.css?1780867663" title="wsite-theme-css" />
+    <link href='http://cdn2.editmysite.com/fonts/Montserrat/font.css?2' rel='stylesheet' type='text/css' />
+    <link href='http://cdn2.editmysite.com/fonts/Playfair_Display/font.css?2' rel='stylesheet' type='text/css' />
+    
+    <style type='text/css'>
+        .wsite-elements.wsite-not-footer:not(.wsite-header-elements) div.paragraph, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) p, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-block .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-description, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .wsite-form-field label, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .wsite-form-field label, #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
+        #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
+        .wsite-elements.wsite-footer div.paragraph, .wsite-elements.wsite-footer p, .wsite-elements.wsite-footer .product-block .product-title, .wsite-elements.wsite-footer .product-description, .wsite-elements.wsite-footer .wsite-form-field label, .wsite-elements.wsite-footer .wsite-form-field label{}
+        .wsite-elements.wsite-not-footer:not(.wsite-header-elements) h2, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-long .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-large .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-small .product-title, #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {font-family:"Playfair Display" !important;letter-spacing: 0px !important;}
+        #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
+        .wsite-elements.wsite-footer h2, .wsite-elements.wsite-footer .product-long .product-title, .wsite-elements.wsite-footer .product-large .product-title, .wsite-elements.wsite-footer .product-small .product-title{}
+        #wsite-title {}
+        .wsite-menu-default a {}
+        .wsite-menu a {}
+        .wsite-image div, .wsite-caption {}
+        .galleryCaptionInnerText {}
+        .fancybox-title {}
+        .wslide-caption-text {}
+        .wsite-phone {}
+        .wsite-headline,.wsite-header-section .wsite-content-title {}
+        .wsite-headline-paragraph,.wsite-header-section .paragraph {color:#2a2a2a !important;}
+        .wsite-button-inner {}
+        .wsite-not-footer blockquote {text-transform:  uppercase !important;letter-spacing: 4px !important;}
+        .wsite-footer blockquote {}
+        .blog-header h2 a {}
+        #wsite-content h2.wsite-product-title {}
+        .wsite-product .wsite-product-price a {}
+        @media screen and (min-width: 767px) {.wsite-elements.wsite-not-footer:not(.wsite-header-elements) div.paragraph, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) p, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-block .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-description, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .wsite-form-field label, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .wsite-form-field label, #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {font-size:16px !important;line-height:20px !important;}
+        #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
+        .wsite-elements.wsite-footer div.paragraph, .wsite-elements.wsite-footer p, .wsite-elements.wsite-footer .product-block .product-title, .wsite-elements.wsite-footer .product-description, .wsite-elements.wsite-footer .wsite-form-field label, .wsite-elements.wsite-footer .wsite-form-field label{}
+        .wsite-elements.wsite-not-footer:not(.wsite-header-elements) h2, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-long .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-large .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-small .product-title, #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {font-size:50px !important;}
+        #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
+        .wsite-elements.wsite-footer h2, .wsite-elements.wsite-footer .product-long .product-title, .wsite-elements.wsite-footer .product-large .product-title, .wsite-elements.wsite-footer .product-small .product-title{}
+        #wsite-title {}
+        .wsite-menu-default a {}
+        .wsite-menu a {}
+        .wsite-image div, .wsite-caption {}
+        .galleryCaptionInnerText {}
+        .fancybox-title {}
+        .wslide-caption-text {}
+        .wsite-phone {}
+        .wsite-headline,.wsite-header-section .wsite-content-title {}
+        .wsite-headline-paragraph,.wsite-header-section .paragraph {}
+        .wsite-button-inner {}
+        .wsite-not-footer blockquote {font-size:35px !important;}
+        .wsite-footer blockquote {}
+        .blog-header h2 a {}
+        #wsite-content h2.wsite-product-title {}
+        .wsite-product .wsite-product-price a {}}
+    </style>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn2.editmysite.com/fonts/Open_Sans/font.css?2" />
+    <style>
+        @font-face {
+            font-family: 'wicons';
+            src: url(//cdn2.editmysite.com/fonts/wIcons/wicons.eot?buildTime=1234);
+            src: url(//cdn2.editmysite.com/fonts/wIcons/wicons.eot?buildTime=1234#iefix) format('embedded-opentype'),
+                     url(//cdn2.editmysite.com/fonts/wIcons/wicons.woff?buildTime=1234) format('woff'),
+                     url(//cdn2.editmysite.com/fonts/wIcons/wicons.ttf?buildTime=1234) format('truetype'),
+                     url(//cdn2.editmysite.com/fonts/wIcons/wicons.svg?buildTime=1234#wicons) format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+            @font-face {
+                font-family: 'wicons';
+                src: url(//cdn2.editmysite.com/fonts/wIcons/wicons.svg?buildTime=1234#wicons) format('svg');
+            }
+        }
+        @font-face {
+            font-family: 'wsocial';
+            src: url(//cdn2.editmysite.com/fonts/wSocial/wsocial.eot?buildTime=1234);
+            src: url(//cdn2.editmysite.com/fonts/wSocial/wsocial.eot?buildTime=1234#iefix) format('embedded-opentype'),
+                     url(//cdn2.editmysite.com/fonts/wSocial/wsocial.woff?buildTime=1234) format('woff'),
+                     url(//cdn2.editmysite.com/fonts/wSocial/wsocial.ttf?buildTime=1234) format('truetype'),
+                     url(//cdn2.editmysite.com/fonts/wSocial/wsocial.svg?buildTime=1234#wsocial) format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+            @font-face {
+                font-family: 'wsocial';
+                src: url(//cdn2.editmysite.com/fonts/wSocial/wsocial.svg?buildTime=1234#wsocial) format('svg');
+            }
+        }
+    </style>
+    
+    <link rel="stylesheet" type="text/css" href="http://cdn11.editmysite.com/css/site_membership.css?buildtime=1234">
+    <script src='files/templateArtifacts.js?1766211403'></script>
+    <script>
+        var STATIC_BASE = '//cdn1.editmysite.com/';
+        var ASSETS_BASE = '//cdn11.editmysite.com/';
+        var STYLE_PREFIX = 'wsite';
+    </script>
+    <script src='https://cdn11.editmysite.com/js/jquery-1.8.3.min.js'></script>
+    <script type="text/javascript" src="http://cdn2.editmysite.com/js/lang/en/stl.js?buildTime=1234&"></script>
+    <script src="http://cdn11.editmysite.com/js/site/main.js?buildtime=1234"></script>
+    <script type="text/javascript">
+        function initCustomerAccountsModels() {
+            (function(){_W.setup_rpc({"url":"\/ajax\/api\/JsonRPC\/CustomerAccounts\/","actions":{"CustomerAccounts":[{"name":"login","len":2,"multiple":false,"standalone":false},{"name":"logout","len":0,"multiple":false,"standalone":false},{"name":"getSessionDetails","len":0,"multiple":false,"standalone":false},{"name":"getAccountDetails","len":0,"multiple":false,"standalone":false},{"name":"getOrders","len":0,"multiple":false,"standalone":false},{"name":"register","len":4,"multiple":false,"standalone":false},{"name":"emailExists","len":1,"multiple":false,"standalone":false},{"name":"passwordReset","len":1,"multiple":false,"standalone":false},{"name":"passwordUpdate","len":3,"multiple":false,"standalone":false},{"name":"validateSession","len":1,"multiple":false,"standalone":false}]},"namespace":"_W.CustomerAccounts.RPC"}); _W.setup_model_rpc({"rpc_namespace":"_W.CustomerAccounts.RPC","model_namespace":"_W.CustomerAccounts.BackboneModelData","collection_namespace":"_W.CustomerAccounts.BackboneCollectionData","bootstrap_namespace":"_W.CustomerAccounts.BackboneBootstrap","models":{"CustomerAccounts":{"_class":"CustomerAccounts.Model.CustomerAccounts","defaults":null,"validation":null,"types":null,"idAttribute":null,"keydefs":null}},"collections":{"CustomerAccounts":{"_class":"CustomerAccounts.Collection.CustomerAccounts"}},"bootstrap":[]}); })();
+        }
+        if(document.createEvent && document.addEventListener) {
+            var initEvt = document.createEvent('Event');
+            initEvt.initEvent('customerAccountsModelsInitialized', true, false);
+            document.dispatchEvent(initEvt);
+        } else if(document.documentElement.initCustomerAccountsModels === 0){
+            document.documentElement.initCustomerAccountsModels++
+        }
+    </script>
+    <script type="text/javascript"> _W = _W || {}; _W.securePrefix='UNSET'; </script>
+    <script>_W = _W || {};
+        _W.customerLocale = "en_US";
+        _W.storeName = null;
+        _W.isCheckoutReskin = false;
+        _W.storeCountry = "US";
+        _W.storeCurrency = "USD";
+        _W.storeEuPrivacyPolicyUrl = "";
+        com_currentSite = "131375831552009135";
+        com_userID = "2687562";
+    </script>
+    <script type="text/javascript"> _W = _W || {}; _W.securePrefix='UNSET'; </script>
+    <script type="text/javascript">
+        _W = window._W || {};
+        _W.allowMemberRegistration = false;
+        _W.showLogin = false;
+    </script>
+    <script type="text/javascript">
+        function initMembershipModels() {
+            (function(){_W.setup_rpc({"url":"\/ajax\/api\/JsonRPC\/Membership\/","actions":{"Member":[{"name":"getRedirectUrl","len":1,"multiple":false,"standalone":false},{"name":"getOriginUrl","len":0,"multiple":false,"standalone":false},{"name":"getSecureMemberUrl","len":0,"multiple":false,"standalone":false},{"name":"validate_user","len":2,"multiple":false,"standalone":false},{"name":"get_account_information","len":0,"multiple":false,"standalone":false},{"name":"get_session_details","len":0,"multiple":false,"standalone":false},{"name":"register_member","len":5,"multiple":false,"standalone":false},{"name":"validate_session","len":1,"multiple":false,"standalone":false},{"name":"set_password","len":3,"multiple":false,"standalone":false},{"name":"send_reset_password_email","len":1,"multiple":false,"standalone":false},{"name":"create","len":1,"multiple":false,"standalone":false},{"name":"readOne","len":1,"multiple":false,"standalone":false},{"name":"readMany","len":1,"multiple":false,"standalone":false},{"name":"update","len":1,"multiple":false,"standalone":false},{"name":"patch","len":1,"multiple":false,"standalone":false},{"name":"destroy","len":1,"multiple":false,"standalone":false}]},"namespace":"_W.Membership.RPC"}); _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Membership.BackboneModelData","collection_namespace":"_W.Membership.BackboneCollectionData","bootstrap_namespace":"_W.Membership.BackboneBootstrap","models":{"Member":{"_class":"Membership.Model.Member","defaults":{"class_name":null,"name":null,"email":"","access_token":null,"token_expiry_date":null,"last_ip":null,"last_login":null,"approved":false,"password_set":null,"group_ids":null,"page_ids":null,"group_page_ids":null,"owner_id":"","site_id":"","updated_date":0,"created_date":0},"validation":{"class_name":null,"site_member_id":null,"name":null,"email":{"email":null,"required":true},"access_token":null,"token_expiry_date":null,"last_ip":null,"last_login":null,"approved":null,"password_set":null,"group_ids":null,"page_ids":null,"group_page_ids":null,"owner_id":{"required":true},"site_id":{"required":true},"updated_date":null,"created_date":null},"types":{"class_name":null,"site_member_id":"string","name":"string","email":"string","access_token":"string","token_expiry_date":"int","last_ip":"string","last_login":"int","approved":"boolean","password_set":"boolean","group_ids":"json","page_ids":"json","group_page_ids":"json","owner_id":"string","site_id":"string","updated_date":"int","created_date":"int"},"idAttribute":"site_member_id","keydefs":{"PRIMARY":["owner_id","site_id","site_member_id"],"idx_owner_site_account":["owner_id","site_id","site_account_id"]}}},"collections":{"Member":{"_class":"Membership.Collection.Member"}},"bootstrap":[]}); })();
+        }
+        if(document.createEvent && document.addEventListener) {
+            var initEvt = document.createEvent('Event');
+            initEvt.initEvent('membershipModelsInitialized', true, false);
+            document.dispatchEvent(initEvt);
+        } else if(document.documentElement.initMembershipModels === 0){
+            document.documentElement.initMembershipModels++
+        }
+    </script>
+    <script src='http://cdn11.editmysite.com/js/site/main-membership-site.js?buildtime=1234'></script>
+    <script type="text/javascript">_W.configDomain = "";</script>
+    <script>_W.relinquish && _W.relinquish()</script>
+    <script type="text/javascript" src="http://cdn2.editmysite.com/js/lang/en/stl.js?buildTime=1234&"></script>
+    <script> _W.themePlugins = [];</script>
+    <script type="text/javascript"> _W.recaptchaUrl = "https://www.google.com/recaptcha/api.js"; </script>
+    <script type="text/javascript">
+        var IS_ARCHIVE = 1;
+        function initFlyouts(){
+            initPublishedFlyoutMenus(
+                [{"id":"218365463650632307","title":"Profile","url":"profile.html","target":"","nav_menu":false,"nonclickable":false},{"id":"235941887652420906","title":"Moeg","url":"moeg.html","target":"","nav_menu":false,"nonclickable":false},{"id":"897999672552578916","title":"Buy","url":"buy.html","target":"","nav_menu":false,"nonclickable":false},{"id":"409648072460886258","title":"Breathe","url":"breathe.html","target":"","nav_menu":false,"nonclickable":false}],
+                "218365463650632307",
+                '',
+                'active',
+                false,
+                {"navigation\/item":"<li {{#id}}id=\"{{id}}\"{{\/id}} class=\"wsite-menu-item-wrap\">\n\t<a\n\t\t{{^nonclickable}}\n\t\t\t{{^nav_menu}}\n\t\t\t\thref=\"{{url}}\"\n\t\t\t{{\/nav_menu}}\n\t\t{{\/nonclickable}}\n\t\t{{#target}}\n\t\t\ttarget=\"{{target}}\"\n\t\t{{\/target}}\n\t\t{{#membership_required}}\n\t\t\tdata-membership-required=\"{{.}}\"\n\t\t{{\/membership_required}}\n\t\tclass=\"wsite-menu-item\"\n\t\t>\n\t\t{{{title_html}}}\n\t<\/a>\n\t{{#has_children}}{{> navigation\/flyout\/list}}{{\/has_children}}\n<\/li>\n","navigation\/flyout\/list":"<div class=\"wsite-menu-wrap\" style=\"display:none\">\n\t<ul class=\"wsite-menu\">\n\t\t{{#children}}{{> navigation\/flyout\/item}}{{\/children}}\n\t<\/ul>\n<\/div>\n","navigation\/flyout\/item":"<li {{#id}}id=\"{{id}}\"{{\/id}}\n\tclass=\"wsite-menu-subitem-wrap {{#is_current}}wsite-nav-current{{\/is_current}}\"\n\t>\n\t<a\n\t\t{{^nonclickable}}\n\t\t\t{{^nav_menu}}\n\t\t\t\thref=\"{{url}}\"\n\t\t\t{{\/nav_menu}}\n\t\t{{\/nonclickable}}\n\t\t{{#target}}\n\t\t\ttarget=\"{{target}}\"\n\t\t{{\/target}}\n\t\tclass=\"wsite-menu-subitem\"\n\t\t>\n\t\t<span class=\"wsite-menu-title\">\n\t\t\t{{{title_html}}}\n\t\t<\/span>{{#has_children}}<span class=\"wsite-menu-arrow\">&gt;<\/span>{{\/has_children}}\n\t<\/a>\n\t{{#has_children}}{{> navigation\/flyout\/list}}{{\/has_children}}\n<\/li>\n"},
+                {}
+            )
+        }
+    </script>
+</head>
 
-#item-2:checked ~ .player #test {
-  transform: translateY(0);
-}
-
-#item-2:checked ~ .player #test  {
-  transform: translateY(-40px);
-}
-
-#item-3:checked ~ .player #test  {
-  transform: translateY(-80px);
-}</style>
-
-		<!-- webmaster tools - https://search.google.com/search-console?utm_source=about-page&resource_id=sc-domain:canyonspringsgolf.com -->
-<meta name="google-site-verification" content="JqmIsVJmSFByv3QfuNGX_VFv3gJeyqQjXBoA72hmSo8" />
-
-<style>
-.simple-table td.cell {background: none !important;}
-.simple-table {border: solid #000000 0px !important;}
-
-.banner .wsite-multicol:hover {background:#252525;}
-
-.callout-box--material {border-radius: 30px;}
-
-span.follow-moeg {
-  --color: #fff;
-  --shadow-stroke: 2px;
-  --shadow-stroke-gap: 3;
-  --shadow-rotate: -45deg;
-  --shadow-color: #aaa;
-  
-  position: relative;
-  color: transparent;
-  font-size: 100px;
-  text-align: center;
-  line-height: 160px;
-  font-family: "DM Serif Text", serif;
-  background: repeating-linear-gradient(
-      var(--shadow-rotate),
-      var(--shadow-color),
-      var(--shadow-color) var(--shadow-stroke),
-      transparent var(--shadow-stroke),
-      transparent calc(var(--shadow-stroke) * var(--shadow-stroke-gap))
-    );
-   
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-stroke: 10px;
-}
-
-span.follow-moeg::before {
-  content: "FOLLOW/STREAM";
-  position: absolute;
-  color: transparent;
-  background: var(--color);
-  -webkit-text-stroke: 10px;
-  left: -10px;
-  top: -10px;
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-</style>
-		<link id="wsite-base-style" rel="stylesheet" type="text/css" href="http://cdn11.editmysite.com/css/sites.css?buildtime=1234" />
-<link rel="stylesheet" type="text/css" href="http://cdn11.editmysite.com/css/old/fancybox.css?buildtime=1234" />
-<link rel="stylesheet" type="text/css" href="http://cdn11.editmysite.com/css/social-icons.css?buildtime=1234" media="screen,projection" />
-<link rel="stylesheet" type="text/css" href="files/main_style.css?1780867663" title="wsite-theme-css" />
-<link href='http://cdn2.editmysite.com/fonts/Montserrat/font.css?2' rel='stylesheet' type='text/css' />
-
-<link href='http://cdn2.editmysite.com/fonts/Playfair_Display/font.css?2' rel='stylesheet' type='text/css' />
-<style type='text/css'>
-.wsite-elements.wsite-not-footer:not(.wsite-header-elements) div.paragraph, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) p, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-block .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-description, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .wsite-form-field label, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .wsite-form-field label, #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
-#wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
-.wsite-elements.wsite-footer div.paragraph, .wsite-elements.wsite-footer p, .wsite-elements.wsite-footer .product-block .product-title, .wsite-elements.wsite-footer .product-description, .wsite-elements.wsite-footer .wsite-form-field label, .wsite-elements.wsite-footer .wsite-form-field label{}
-.wsite-elements.wsite-not-footer:not(.wsite-header-elements) h2, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-long .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-large .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-small .product-title, #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {font-family:"Playfair Display" !important;letter-spacing: 0px !important;}
-#wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
-.wsite-elements.wsite-footer h2, .wsite-elements.wsite-footer .product-long .product-title, .wsite-elements.wsite-footer .product-large .product-title, .wsite-elements.wsite-footer .product-small .product-title{}
-#wsite-title {}
-.wsite-menu-default a {}
-.wsite-menu a {}
-.wsite-image div, .wsite-caption {}
-.galleryCaptionInnerText {}
-.fancybox-title {}
-.wslide-caption-text {}
-.wsite-phone {}
-.wsite-headline,.wsite-header-section .wsite-content-title {}
-.wsite-headline-paragraph,.wsite-header-section .paragraph {color:#2a2a2a !important;}
-.wsite-button-inner {}
-.wsite-not-footer blockquote {text-transform:  uppercase !important;letter-spacing: 4px !important;}
-.wsite-footer blockquote {}
-.blog-header h2 a {}
-#wsite-content h2.wsite-product-title {}
-.wsite-product .wsite-product-price a {}
-@media screen and (min-width: 767px) {.wsite-elements.wsite-not-footer:not(.wsite-header-elements) div.paragraph, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) p, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-block .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-description, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .wsite-form-field label, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .wsite-form-field label, #wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {font-size:16px !important;line-height:20px !important;}
-#wsite-content div.paragraph, #wsite-content p, #wsite-content .product-block .product-title, #wsite-content .product-description, #wsite-content .wsite-form-field label, #wsite-content .wsite-form-field label, .blog-sidebar div.paragraph, .blog-sidebar p, .blog-sidebar .wsite-form-field label, .blog-sidebar .wsite-form-field label {}
-.wsite-elements.wsite-footer div.paragraph, .wsite-elements.wsite-footer p, .wsite-elements.wsite-footer .product-block .product-title, .wsite-elements.wsite-footer .product-description, .wsite-elements.wsite-footer .wsite-form-field label, .wsite-elements.wsite-footer .wsite-form-field label{}
-.wsite-elements.wsite-not-footer:not(.wsite-header-elements) h2, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-long .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-large .product-title, .wsite-elements.wsite-not-footer:not(.wsite-header-elements) .product-small .product-title, #wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {font-size:50px !important;}
-#wsite-content h2, #wsite-content .product-long .product-title, #wsite-content .product-large .product-title, #wsite-content .product-small .product-title, .blog-sidebar h2 {}
-.wsite-elements.wsite-footer h2, .wsite-elements.wsite-footer .product-long .product-title, .wsite-elements.wsite-footer .product-large .product-title, .wsite-elements.wsite-footer .product-small .product-title{}
-#wsite-title {}
-.wsite-menu-default a {}
-.wsite-menu a {}
-.wsite-image div, .wsite-caption {}
-.galleryCaptionInnerText {}
-.fancybox-title {}
-.wslide-caption-text {}
-.wsite-phone {}
-.wsite-headline,.wsite-header-section .wsite-content-title {}
-.wsite-headline-paragraph,.wsite-header-section .paragraph {}
-.wsite-button-inner {}
-.wsite-not-footer blockquote {font-size:35px !important;}
-.wsite-footer blockquote {}
-.blog-header h2 a {}
-#wsite-content h2.wsite-product-title {}
-.wsite-product .wsite-product-price a {}
-}</style>
-<link rel="stylesheet" type="text/css" href="https://cdn2.editmysite.com/fonts/Open_Sans/font.css?2" />
-<style>
-	@font-face {
-		font-family: 'wicons';
-		src: url(//cdn2.editmysite.com/fonts/wIcons/wicons.eot?buildTime=1234);
-		src: url(//cdn2.editmysite.com/fonts/wIcons/wicons.eot?buildTime=1234#iefix) format('embedded-opentype'),
-				 url(//cdn2.editmysite.com/fonts/wIcons/wicons.woff?buildTime=1234) format('woff'),
-				 url(//cdn2.editmysite.com/fonts/wIcons/wicons.ttf?buildTime=1234) format('truetype'),
-				 url(//cdn2.editmysite.com/fonts/wIcons/wicons.svg?buildTime=1234#wicons) format('svg');
-		font-weight: normal;
-		font-style: normal;
-	}
-	/* Hack to smooth out font rendering on Chrome for Windows */
-	@media screen and (-webkit-min-device-pixel-ratio: 0) {
-		@font-face {
-			font-family: 'wicons';
-			src: url(//cdn2.editmysite.com/fonts/wIcons/wicons.svg?buildTime=1234#wicons) format('svg');
-		}
-	}
-
-	@font-face {
-		font-family: 'wsocial';
-		src: url(//cdn2.editmysite.com/fonts/wSocial/wsocial.eot?buildTime=1234);
-		src: url(//cdn2.editmysite.com/fonts/wSocial/wsocial.eot?buildTime=1234#iefix) format('embedded-opentype'),
-				 url(//cdn2.editmysite.com/fonts/wSocial/wsocial.woff?buildTime=1234) format('woff'),
-				 url(//cdn2.editmysite.com/fonts/wSocial/wsocial.ttf?buildTime=1234) format('truetype'),
-				 url(//cdn2.editmysite.com/fonts/wSocial/wsocial.svg?buildTime=1234#wsocial) format('svg');
-		font-weight: normal;
-		font-style: normal;
-	}
-	/* Hack to smooth out font rendering on Chrome for Windows */
-	@media screen and (-webkit-min-device-pixel-ratio: 0) {
-		@font-face {
-			font-family: 'wsocial';
-			src: url(//cdn2.editmysite.com/fonts/wSocial/wsocial.svg?buildTime=1234#wsocial) format('svg');
-		}
-	}
-</style>
-
-<link rel="stylesheet" type="text/css" href="http://cdn11.editmysite.com/css/site_membership.css?buildtime=1234">
-
-		<script src='files/templateArtifacts.js?1766211403'></script>
-<script>
-var STATIC_BASE = '//cdn1.editmysite.com/';
-var ASSETS_BASE = '//cdn11.editmysite.com/';
-var STYLE_PREFIX = 'wsite';
-</script>
-<script src='https://cdn11.editmysite.com/js/jquery-1.8.3.min.js'></script>
-
-<script type="text/javascript" src="http://cdn2.editmysite.com/js/lang/en/stl.js?buildTime=1234&"></script>
-<script src="http://cdn11.editmysite.com/js/site/main.js?buildtime=1234"></script><script type="text/javascript">
-		function initCustomerAccountsModels() {
-					(function(){_W.setup_rpc({"url":"\/ajax\/api\/JsonRPC\/CustomerAccounts\/","actions":{"CustomerAccounts":[{"name":"login","len":2,"multiple":false,"standalone":false},{"name":"logout","len":0,"multiple":false,"standalone":false},{"name":"getSessionDetails","len":0,"multiple":false,"standalone":false},{"name":"getAccountDetails","len":0,"multiple":false,"standalone":false},{"name":"getOrders","len":0,"multiple":false,"standalone":false},{"name":"register","len":4,"multiple":false,"standalone":false},{"name":"emailExists","len":1,"multiple":false,"standalone":false},{"name":"passwordReset","len":1,"multiple":false,"standalone":false},{"name":"passwordUpdate","len":3,"multiple":false,"standalone":false},{"name":"validateSession","len":1,"multiple":false,"standalone":false}]},"namespace":"_W.CustomerAccounts.RPC"});
-_W.setup_model_rpc({"rpc_namespace":"_W.CustomerAccounts.RPC","model_namespace":"_W.CustomerAccounts.BackboneModelData","collection_namespace":"_W.CustomerAccounts.BackboneCollectionData","bootstrap_namespace":"_W.CustomerAccounts.BackboneBootstrap","models":{"CustomerAccounts":{"_class":"CustomerAccounts.Model.CustomerAccounts","defaults":null,"validation":null,"types":null,"idAttribute":null,"keydefs":null}},"collections":{"CustomerAccounts":{"_class":"CustomerAccounts.Collection.CustomerAccounts"}},"bootstrap":[]});
-})();
-		}
-		if(document.createEvent && document.addEventListener) {
-			var initEvt = document.createEvent('Event');
-			initEvt.initEvent('customerAccountsModelsInitialized', true, false);
-			document.dispatchEvent(initEvt);
-		} else if(document.documentElement.initCustomerAccountsModels === 0){
-			document.documentElement.initCustomerAccountsModels++
-		}
-		</script>
-		<script type="text/javascript"> _W = _W || {}; _W.securePrefix='UNSET'; </script><script>_W = _W || {};
-			_W.customerLocale = "en_US";
-			_W.storeName = null;
-			_W.isCheckoutReskin = false;
-			_W.storeCountry = "US";
-			_W.storeCurrency = "USD";
-			_W.storeEuPrivacyPolicyUrl = "";
-			com_currentSite = "131375831552009135";
-			com_userID = "2687562";</script><script type="text/javascript"> _W = _W || {}; _W.securePrefix='UNSET'; </script><script type="text/javascript">
-								_W = window._W || {};
-								_W.allowMemberRegistration = false;
-								_W.showLogin = false;
-							</script><script type="text/javascript">
-					function initMembershipModels() {
-						(function(){_W.setup_rpc({"url":"\/ajax\/api\/JsonRPC\/Membership\/","actions":{"Member":[{"name":"getRedirectUrl","len":1,"multiple":false,"standalone":false},{"name":"getOriginUrl","len":0,"multiple":false,"standalone":false},{"name":"getSecureMemberUrl","len":0,"multiple":false,"standalone":false},{"name":"validate_user","len":2,"multiple":false,"standalone":false},{"name":"get_account_information","len":0,"multiple":false,"standalone":false},{"name":"get_session_details","len":0,"multiple":false,"standalone":false},{"name":"register_member","len":5,"multiple":false,"standalone":false},{"name":"validate_session","len":1,"multiple":false,"standalone":false},{"name":"set_password","len":3,"multiple":false,"standalone":false},{"name":"send_reset_password_email","len":1,"multiple":false,"standalone":false},{"name":"create","len":1,"multiple":false,"standalone":false},{"name":"readOne","len":1,"multiple":false,"standalone":false},{"name":"readMany","len":1,"multiple":false,"standalone":false},{"name":"update","len":1,"multiple":false,"standalone":false},{"name":"patch","len":1,"multiple":false,"standalone":false},{"name":"destroy","len":1,"multiple":false,"standalone":false}]},"namespace":"_W.Membership.RPC"});
-_W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Membership.BackboneModelData","collection_namespace":"_W.Membership.BackboneCollectionData","bootstrap_namespace":"_W.Membership.BackboneBootstrap","models":{"Member":{"_class":"Membership.Model.Member","defaults":{"class_name":null,"name":null,"email":"","access_token":null,"token_expiry_date":null,"last_ip":null,"last_login":null,"approved":false,"password_set":null,"group_ids":null,"page_ids":null,"group_page_ids":null,"owner_id":"","site_id":"","updated_date":0,"created_date":0},"validation":{"class_name":null,"site_member_id":null,"name":null,"email":{"email":null,"required":true},"access_token":null,"token_expiry_date":null,"last_ip":null,"last_login":null,"approved":null,"password_set":null,"group_ids":null,"page_ids":null,"group_page_ids":null,"owner_id":{"required":true},"site_id":{"required":true},"updated_date":null,"created_date":null},"types":{"class_name":null,"site_member_id":"string","name":"string","email":"string","access_token":"string","token_expiry_date":"int","last_ip":"string","last_login":"int","approved":"boolean","password_set":"boolean","group_ids":"json","page_ids":"json","group_page_ids":"json","owner_id":"string","site_id":"string","updated_date":"int","created_date":"int"},"idAttribute":"site_member_id","keydefs":{"PRIMARY":["owner_id","site_id","site_member_id"],"idx_owner_site_account":["owner_id","site_id","site_account_id"]}}},"collections":{"Member":{"_class":"Membership.Collection.Member"}},"bootstrap":[]});
-})();
-					}
-					if(document.createEvent && document.addEventListener) {
-						var initEvt = document.createEvent('Event');
-						initEvt.initEvent('membershipModelsInitialized', true, false);
-						document.dispatchEvent(initEvt);
-					} else if(document.documentElement.initMembershipModels === 0){
-						document.documentElement.initMembershipModels++
-					}
-					</script><script src='http://cdn11.editmysite.com/js/site/main-membership-site.js?buildtime=1234'></script>
-<script type="text/javascript">_W.configDomain = "";</script><script>_W.relinquish && _W.relinquish()</script>
-<script type="text/javascript" src="http://cdn2.editmysite.com/js/lang/en/stl.js?buildTime=1234&"></script><script> _W.themePlugins = [];</script><script type="text/javascript"> _W.recaptchaUrl = "https://www.google.com/recaptcha/api.js"; </script><script type="text/javascript"><!--
-	var IS_ARCHIVE = 1;
-	
-	function initFlyouts(){
-		initPublishedFlyoutMenus(
-			[{"id":"218365463650632307","title":"Profile","url":"profile.html","target":"","nav_menu":false,"nonclickable":false},{"id":"235941887652420906","title":"Moeg","url":"moeg.html","target":"","nav_menu":false,"nonclickable":false},{"id":"897999672552578916","title":"Buy","url":"buy.html","target":"","nav_menu":false,"nonclickable":false},{"id":"409648072460886258","title":"Breathe","url":"breathe.html","target":"","nav_menu":false,"nonclickable":false}],
-			"218365463650632307",
-			'',
-			'active',
-			false,
-			{"navigation\/item":"<li {{#id}}id=\"{{id}}\"{{\/id}} class=\"wsite-menu-item-wrap\">\n\t<a\n\t\t{{^nonclickable}}\n\t\t\t{{^nav_menu}}\n\t\t\t\thref=\"{{url}}\"\n\t\t\t{{\/nav_menu}}\n\t\t{{\/nonclickable}}\n\t\t{{#target}}\n\t\t\ttarget=\"{{target}}\"\n\t\t{{\/target}}\n\t\t{{#membership_required}}\n\t\t\tdata-membership-required=\"{{.}}\"\n\t\t{{\/membership_required}}\n\t\tclass=\"wsite-menu-item\"\n\t\t>\n\t\t{{{title_html}}}\n\t<\/a>\n\t{{#has_children}}{{> navigation\/flyout\/list}}{{\/has_children}}\n<\/li>\n","navigation\/flyout\/list":"<div class=\"wsite-menu-wrap\" style=\"display:none\">\n\t<ul class=\"wsite-menu\">\n\t\t{{#children}}{{> navigation\/flyout\/item}}{{\/children}}\n\t<\/ul>\n<\/div>\n","navigation\/flyout\/item":"<li {{#id}}id=\"{{id}}\"{{\/id}}\n\tclass=\"wsite-menu-subitem-wrap {{#is_current}}wsite-nav-current{{\/is_current}}\"\n\t>\n\t<a\n\t\t{{^nonclickable}}\n\t\t\t{{^nav_menu}}\n\t\t\t\thref=\"{{url}}\"\n\t\t\t{{\/nav_menu}}\n\t\t{{\/nonclickable}}\n\t\t{{#target}}\n\t\t\ttarget=\"{{target}}\"\n\t\t{{\/target}}\n\t\tclass=\"wsite-menu-subitem\"\n\t\t>\n\t\t<span class=\"wsite-menu-title\">\n\t\t\t{{{title_html}}}\n\t\t<\/span>{{#has_children}}<span class=\"wsite-menu-arrow\">&gt;<\/span>{{\/has_children}}\n\t<\/a>\n\t{{#has_children}}{{> navigation\/flyout\/list}}{{\/has_children}}\n<\/li>\n"},
-			{}
-		)
-	}
-//-->
-</script>
-		
-		
-	</head>
-	<body class=" wsite-page-profile  full-width-body-off header-overlay-on alt-nav-off  wsite-theme-light"><div class="container">
-    <input type="radio" name="slider" id="item-1" checked>
-    <input type="radio" name="slider" id="item-2">
-    <input type="radio" name="slider" id="item-3">
-  <div class="cards">
-    <label class="card" for="item-1" id="song-1">
-      <img src="https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80" alt="song">
-    </label>
-    <label class="card" for="item-2" id="song-2">
-      <img src="https://images.unsplash.com/photo-1559386484-97dfc0e15539?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80" alt="song">
-    </label>
-    <label class="card" for="item-3" id="song-3">
-      <img src="https://images.unsplash.com/photo-1533461502717-83546f485d24?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="song">
-    </label>
-  </div>
-  <div class="player">
-    <div class="upper-part">
-      <div class="play-icon">
-        <svg width="20" height="20" fill="#2992dc" stroke="#2992dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-play" viewBox="0 0 24 24">
-          <defs/>
-          <path d="M5 3l14 9-14 9V3z"/>
-        </svg>
-      </div>
-      <div class="info-area" id="test">
-        <label class="song-info" id="song-info-1">
-          <div class="title">Bunker</div>
-          <div class="sub-line">
-            <div class="subtitle">Balthazar</div>
-            <div class="time">4.05</div>
-          </div>
-        </label>
-        <label class="song-info" id="song-info-2">
-          <div class="title">Words Remain</div>
-          <div class="sub-line">
-            <div class="subtitle">Moderator</div>
-            <div class="time">4.05</div>
-          </div>
-        </label>
-        <label class="song-info" id="song-info-3">
-          <div class="title">Falling Out</div>
-          <div class="sub-line">
-            <div class="subtitle">Otzeki</div>
-            <div class="time">4.05</div>
-          </div>
-        </label>
-      </div>
+<body class="wsite-page-profile full-width-body-off header-overlay-on alt-nav-off wsite-theme-light">
+    <div class="cmg-profile-container">
+        <input type="radio" name="slider" class="cmg-profile-slider" id="cmg-profile-item-1" checked>
+        <input type="radio" name="slider" class="cmg-profile-slider" id="cmg-profile-item-2">
+        <input type="radio" name="slider" class="cmg-profile-slider" id="cmg-profile-item-3">
+        
+        <div class="cmg-profile-cards">
+            <label class="cmg-profile-card" for="cmg-profile-item-1" id="cmg-profile-song-1">
+                <img src="https://images.unsplash.com/photo-1530651788726-1dbf58eeef1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=882&q=80" alt="song">
+            </label>
+            <label class="cmg-profile-card" for="cmg-profile-item-2" id="cmg-profile-song-2">
+                <img src="https://images.unsplash.com/photo-1559386484-97dfc0e15539?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80" alt="song">
+            </label>
+            <label class="cmg-profile-card" for="cmg-profile-item-3" id="cmg-profile-song-3">
+                <img src="https://images.unsplash.com/photo-1533461502717-83546f485d24?ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="song">
+            </label>
+        </div>
+        
+        <div class="cmg-profile-player">
+            <div class="cmg-profile-upper-part">
+                <div class="cmg-profile-play-icon">
+                    <svg width="20" height="20" fill="#2992dc" stroke="#2992dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-play" viewBox="0 0 24 24">
+                        <defs/>
+                        <path d="M5 3l14 9-14 9V3z"/>
+                    </svg>
+                </div>
+                <div class="cmg-profile-info-area">
+                    <label class="cmg-profile-song-info" id="cmg-profile-song-info-1">
+                        <div class="cmg-profile-title">Bunker</div>
+                        <div class="cmg-profile-sub-line">
+                            <div class="cmg-profile-subtitle">Balthazar</div>
+                            <div class="cmg-profile-time">4.05</div>
+                        </div>
+                    </label>
+                    <label class="cmg-profile-song-info" id="cmg-profile-song-info-2">
+                        <div class="cmg-profile-title">Words Remain</div>
+                        <div class="cmg-profile-sub-line">
+                            <div class="cmg-profile-subtitle">Moderator</div>
+                            <div class="cmg-profile-time">4.05</div>
+                        </div>
+                    </label>
+                    <label class="cmg-profile-song-info" id="cmg-profile-song-info-3">
+                        <div class="cmg-profile-title">Falling Out</div>
+                        <div class="cmg-profile-sub-line">
+                            <div class="cmg-profile-subtitle">Otzeki</div>
+                            <div class="cmg-profile-time">4.05</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="cmg-profile-progress-bar">
+                <span class="cmg-profile-progress"></span>
+            </div>
+        </div>
     </div>
-    <div class="progress-bar">
-      <span class="progress"></span>
-    </div>
-  </div>
-</div>
-<!--<div style='display:none'>{title}</div>
-<div style='display:none'>{menu}</div>
-<div style='display:none'>{content}</div>
-<div style='padding: 20px; width:100%; text-align:center;'>{footer}</div>-->
-<script>$('input').on('change', function() {
-  $('body').toggleClass('blue');
-});
-</script>
+    
+    <!--<div style='display:none'>{title}</div>
+    <div style='display:none'>{menu}</div>
+    <div style='display:none'>{content}</div>
+    <div style='padding: 20px; width:100%; text-align:center;'>{footer}</div>-->
+    
+    <script>
+        $('.cmg-profile-slider').on('change', function() {
+            $('body').toggleClass('cmg-profile-blue');
+        });
+    </script>
+    
     <div id="customer-accounts-app"></div>
     <script src="http://cdn11.editmysite.com/js/site/main-customer-accounts-site.js?buildtime=1234"></script>
-<div id="dialog-region"></div>
-		
-	</body>
+    <div id="dialog-region"></div>
+</body>
 </html>
