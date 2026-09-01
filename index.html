@@ -424,6 +424,84 @@
             animation: spotify-orbit 10s ease-in-out infinite alternate;
         }
 
+        .spotify-track-spotlight {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+            padding: 1rem;
+            border: 1px solid rgba(13, 148, 136, 0.22);
+            border-radius: 26px;
+            background:
+                radial-gradient(circle at 92% 12%, rgba(214, 255, 0, 0.28), transparent 32%),
+                linear-gradient(145deg, rgba(204, 251, 241, 0.94), rgba(255, 255, 255, 0.92));
+            box-shadow: 0 18px 42px rgba(15, 118, 110, 0.14);
+        }
+
+        .spotify-track-spotlight-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.15rem 0.25rem 0.85rem;
+        }
+
+        .spotify-track-kicker {
+            margin: 0 0 0.2rem;
+            color: #ef3f40;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.14em !important;
+            text-transform: uppercase;
+        }
+
+        .spotify-track-title {
+            margin: 0;
+            color: #0f172a;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.45rem, 2.4vw, 2rem);
+            line-height: 1.08;
+        }
+
+        .spotify-track-badge {
+            flex: 0 0 auto;
+            padding: 0.42rem 0.7rem;
+            border-radius: 999px;
+            color: #0f766e;
+            background: rgba(255, 255, 255, 0.78);
+            font-size: 0.66rem;
+            font-weight: 800;
+            letter-spacing: 0.08em !important;
+            text-transform: uppercase;
+        }
+
+        .spotify-track-embed {
+            display: block;
+            width: 100%;
+            height: 152px;
+            border: 0;
+            border-radius: 18px;
+            background: #121212;
+        }
+
+        .spotify-catalog-label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 0.25rem 0 0.75rem;
+            color: #64748b;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.12em !important;
+            text-transform: uppercase;
+        }
+
+        .spotify-catalog-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(100, 116, 139, 0.22);
+        }
+
         .spotify-artist-embed {
             display: block;
             width: 100%;
@@ -485,6 +563,12 @@
             .spotify-player-footer {
                 align-items: stretch;
                 flex-direction: column;
+            }
+
+            .spotify-track-spotlight-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 0.55rem;
             }
         }
 
@@ -1397,11 +1481,34 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
 
 <h2 class="wsite-content-title">Listen to Moeg</h2>
 
-<div><div id="722058159667634883" align="left" style="width: 100%; overflow-y: hidden;" class="wcustomhtml"><p>Play Moeg right here through Spotify. This artist player stays connected to the Spotify catalog as new music is released.</p></div>
+<div><div id="722058159667634883" align="left" style="width: 100%; overflow-y: hidden;" class="wcustomhtml"><p>Start with the featured song, then explore more Moeg tracks in the connected artist player.</p></div>
 
 
 
 </div>
+
+<!-- FEATURED SPOTIFY RELEASE: replace this title and Spotify release ID to spotlight a different song. -->
+<section class="spotify-track-spotlight" aria-labelledby="spotify-featured-track-title">
+    <div class="spotify-track-spotlight-header">
+        <div>
+            <p class="spotify-track-kicker">Featured Track</p>
+            <h3 class="spotify-track-title" id="spotify-featured-track-title">Slow All the Way Down</h3>
+        </div>
+        <span class="spotify-track-badge">Moeg Pick</span>
+    </div>
+    <iframe
+        class="spotify-track-embed"
+        title="Play Slow All the Way Down by Moeg on Spotify"
+        src="https://open.spotify.com/embed/album/5OEx2Ty9BFG2WYsnIqoOPU?utm_source=generator&amp;theme=0"
+        width="100%"
+        height="152"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        allowfullscreen>
+    </iframe>
+</section>
+
+<p class="spotify-catalog-label">More from Moeg</p>
 
 <div class="spotify-player-shell">
     <iframe
@@ -1671,12 +1778,12 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
 <section class="video-showcase" aria-labelledby="featured-video-title">
     <header>
         <p class="featured-video-kicker">Featured Video</p>
-        <h2 class="featured-video-title" id="featured-video-title">Sun Cruiser</h2>
-        <p class="featured-video-description">Relax with a soothing acoustic-reggae melody and an easy beach vibe.</p>
+        <h2 class="featured-video-title" id="featured-video-title">Slow All the Way Down</h2>
+        <p class="featured-video-description">Watch the new Moeg video and settle into the rhythm of “Slow All the Way Down.”</p>
     </header>
 
     <div class="featured-video-player">
-        <iframe src="https://www.youtube.com/embed/3RwyPDQPf48?si=z6Tkpmhf-QwkkYM7" title="Moeg — Sun Cruiser (Closing Credits)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+        <iframe src="https://www.youtube.com/embed/0QszPBcCZGM" title="Moeg — Slow All the Way Down" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
     </div>
 
     <div class="more-videos-header">
@@ -1715,13 +1822,12 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
             <h4 class="secondary-video-title">Hideout</h4>
         </a>
 
-        <a class="secondary-video-card" href="https://www.youtube.com/watch?v=jenc6mIVceM" target="_blank" rel="noopener noreferrer">
+        <a class="secondary-video-card" href="https://www.youtube.com/watch?v=3RwyPDQPf48" target="_blank" rel="noopener noreferrer">
             <div class="secondary-video-thumb">
-                <img src="https://i.ytimg.com/vi/jenc6mIVceM/hqdefault.jpg" alt="Don't Dwell on It teaser thumbnail" loading="lazy">
+                <img src="https://i.ytimg.com/vi/3RwyPDQPf48/hqdefault.jpg" alt="Sun Cruiser video thumbnail" loading="lazy">
                 <span class="secondary-video-play" aria-hidden="true">▶</span>
-                <span class="secondary-video-duration">0:12</span>
             </div>
-            <h4 class="secondary-video-title">Don't Dwell on It — Teaser</h4>
+            <h4 class="secondary-video-title">Sun Cruiser</h4>
         </a>
     </div>
 </section>
