@@ -5,12 +5,12 @@
     root.dataset.tvInitialized = 'true';
     // Add new channels here. Their order is also the continuous playback order.
     const videos = [
+        { id: 'PaRleSO9AdQ', title: 'Let’s Slow All the Way Down' },
         { id: '0QszPBcCZGM', title: 'I Can Tell That We Are Going To Be Friends' },
         { id: 'VrcF1EmcZLg', title: 'People of the Sun' },
         { id: 'ydyJxxNz9Vc', title: 'Sunset Chasing' },
         { id: 'kn6fWeLbFJ0', title: 'Hideout' },
-        { id: '3RwyPDQPf48', title: 'Sun Cruiser' },
-        { id: 'PaRleSO9AdQ', title: 'Let’s Slow All the Way Down' }
+        { id: '3RwyPDQPf48', title: 'Sun Cruiser' }
     ];
     let current = 0;
     let player;
