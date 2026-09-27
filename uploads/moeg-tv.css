@@ -1,0 +1,38 @@
+/* Moeg TV: a warm, tactile television around an unobstructed video player. */
+.moeg-tv { --tv-ink: #163d3a; margin-top: 1rem; }
+.moeg-tv .tv-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+.moeg-tv .tv-kicker { color: #b74330; font: 800 12px 'Lato', sans-serif; letter-spacing: .18em !important; text-transform: uppercase; margin: 0 0 8px; }
+.moeg-tv h2 { font-size: clamp(42px, 7vw, 76px); line-height: 1; color: var(--tv-ink); margin: 0; }
+.moeg-tv .tv-intro { max-width: 310px; color: #475569; margin: 0; line-height: 1.6; }
+.tv-cabinet { padding: clamp(12px, 2.6vw, 30px); background: #dab77b; border: 3px solid #705639; border-radius: 34px; box-shadow: 0 9px 0 #705639, 0 24px 40px #163d3a26; }
+.tv-body { display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 24px; }
+.tv-screen { aspect-ratio: 16 / 9; min-height: 200px; position: relative; overflow: hidden; border: 8px solid #243b38; border-radius: 24px; background: #102321; box-shadow: 0 0 0 2px #887044; }
+.tv-screen iframe { width: 100%; height: 100%; position: absolute; inset: 0; border: 0; }
+.tv-panel { display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; gap: 16px; }
+.tv-brand { color: #263e37; font-size: 24px; font-weight: 900; font-style: italic; text-align: center; }
+.tv-channel { padding: 14px 8px; border-radius: 10px; background: #173c37; color: #d9efb4; text-align: center; font: 700 25px monospace; box-shadow: inset 0 3px 8px #0005; }
+.tv-channel small { display: block; font: 10px 'Lato', sans-serif; letter-spacing: .16em; margin-bottom: 7px; }
+.moeg-tv button { cursor: pointer; font-family: 'Lato', sans-serif; }
+.tv-channel-controls { display: flex; gap: 8px; }
+.tv-channel-controls button { flex: 1; min-height: 48px; border: 2px solid #173c37; border-radius: 50%; background: #f7eedb; color: #173c37; font-size: 17px; font-weight: 900; box-shadow: 0 3px 0 #705639; }
+.tv-speaker { min-height: 48px; flex: 1; background: repeating-linear-gradient(0deg, transparent 0 5px, #705639 5px 7px); opacity: .7; border-radius: 10px; }
+.tv-bottom { display: flex; justify-content: space-between; gap: 18px; align-items: center; padding-top: 20px; color: #263e37; }
+.tv-bottom p { margin: 0; }
+.tv-now-label { display: block; font-size: 10px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px; }
+#tv-now-title { font-weight: 800; font-size: 17px; }
+.tv-autoplay { display: flex; align-items: center; gap: 8px; font-size: 13px; white-space: nowrap; cursor: pointer; }
+.tv-autoplay input { width: 18px; height: 18px; accent-color: #176759; }
+.tv-guide-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 34px 0 14px; }
+.tv-guide-heading h3 { margin: 0; font-size: 24px; color: var(--tv-ink); }
+.tv-guide-heading a, .tv-help a { color: #176759 !important; text-decoration: underline; }
+.tv-guide { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.tv-guide button { padding: 6px; text-align: left; color: #173c37; background: #fffaf0; border: 2px solid transparent; border-radius: 14px; transition: border-color .2s, transform .2s; }
+.tv-guide button:hover { transform: translateY(-3px); border-color: #b5915a; }
+.tv-guide button[aria-pressed="true"] { border-color: #176759; background: #e4efe6; }
+.tv-guide img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; }
+.tv-guide .tv-guide-number { display: block; font: 800 10px 'Lato', sans-serif; letter-spacing: .1em; padding: 10px 5px 4px; }
+.tv-guide strong { display: block; padding: 0 5px 8px; font-size: 13px; line-height: 1.4; }
+.moeg-tv button:focus-visible, .moeg-tv a:focus-visible, .moeg-tv input:focus-visible { outline: 3px solid #b74330; outline-offset: 4px; }
+.tv-help { margin: 14px 0 0; font-size: 13px; color: #475569; }
+@media(max-width: 700px) { .moeg-tv .tv-heading { display: block; } .moeg-tv .tv-intro { margin-top: 14px; max-width: none; } .tv-body { grid-template-columns: minmax(0, 1fr); gap: 16px; } .tv-panel { flex-direction: row; align-items: center; } .tv-brand { font-size: 20px; } .tv-channel { font-size: 18px; padding: 8px 12px; } .tv-channel small, .tv-speaker { display: none; } .tv-channel-controls { width: 115px; } .tv-bottom { align-items: start; flex-direction: column; gap: 12px; } .tv-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); } .tv-screen { border-width: 5px; border-radius: 16px; } .tv-guide-heading { align-items: start; flex-direction: column; gap: 8px; } }
+@media(prefers-reduced-motion: reduce) { .tv-guide button { transition: none; } }

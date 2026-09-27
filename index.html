@@ -1262,7 +1262,8 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
 </script>
 		
 		
-	</head>
+	<link rel="stylesheet" href="uploads/moeg-tv.css">
+</head>
 	<body class=" wsite-page-index  full-width-body-off header-overlay-on alt-nav-off  wsite-theme-light"><!-- Navigation -->
     <nav class="flex justify-between items-center px-6 md:px-8 py-6 text-slate-800" id="navbar">
         <div class="text-2xl font-bold serif tracking-wider z-50"><span class="wsite-logo">
@@ -1783,61 +1784,32 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
 </div></div></div></div>
 
 <div class="music-video-fullwidth">
-<section class="video-showcase" aria-labelledby="featured-video-title">
-    <header>
-        <p class="featured-video-kicker">Featured Video</p>
-        <h2 class="featured-video-title" id="featured-video-title">I Can Tell That We Are Going To Be Friends</h2>
-        <p class="featured-video-description">Watch the new Moeg and his friend video.</p>
+<section class="video-showcase moeg-tv" aria-labelledby="featured-video-title">
+    <header class="tv-heading">
+        <div><p class="tv-kicker">All Moeg. All the time.</p><h2 id="featured-video-title">Moeg TV</h2></div>
+        <p class="tv-intro">Tune in. Kick back. Stay awhile.<br>Your favorite Moeg videos, one channel at a time.</p>
     </header>
-
-    <div class="featured-video-player">
-        <iframe src="https://www.youtube.com/embed/0QszPBcCZGM" title="Moeg — Slow All the Way Down" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
-    </div>
-
-    <div class="more-videos-header">
-        <div>
-            <p class="more-videos-kicker">Keep Watching</p>
-            <h3 class="more-videos-title">More Videos</h3>
+    <div class="tv-cabinet">
+        <div class="tv-body">
+            <div class="tv-screen">
+                <iframe id="moeg-tv-player" src="https://www.youtube.com/embed/0QszPBcCZGM?enablejsapi=1&amp;playsinline=1&amp;rel=0" title="Moeg TV — I Can Tell That We Are Going To Be Friends" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="tv-panel">
+                <div class="tv-brand" aria-hidden="true">moeg tv.</div>
+                <div class="tv-channel"><small>NOW TUNED TO</small><span id="tv-channel-number">CH 01</span></div>
+                <div class="tv-channel-controls"><button type="button" id="tv-prev" aria-label="Previous channel">CH −</button><button type="button" id="tv-next" aria-label="Next channel">CH +</button></div>
+                <div class="tv-speaker" aria-hidden="true"></div>
+            </div>
         </div>
-        <a class="more-videos-link" href="https://www.youtube.com/@MoegMusic7801/videos" target="_blank" rel="noopener noreferrer">View All →</a>
+        <div class="tv-bottom">
+            <p aria-live="polite"><span class="tv-now-label">Now showing</span><span id="tv-now-title">I Can Tell That We Are Going To Be Friends</span></p>
+            <label class="tv-autoplay"><input type="checkbox" id="tv-autoplay" checked> Keep the videos rolling</label>
+        </div>
     </div>
-
-    <div class="secondary-video-grid">
-        <a class="secondary-video-card" href="https://www.youtube.com/watch?v=VrcF1EmcZLg" target="_blank" rel="noopener noreferrer">
-            <div class="secondary-video-thumb">
-                <img src="https://i.ytimg.com/vi/VrcF1EmcZLg/hqdefault.jpg" alt="People of the Sun video thumbnail" loading="lazy">
-                <span class="secondary-video-play" aria-hidden="true">▶</span>
-                <span class="secondary-video-duration">6:13</span>
-            </div>
-            <h4 class="secondary-video-title">People of the Sun</h4>
-        </a>
-
-        <a class="secondary-video-card" href="https://www.youtube.com/watch?v=ydyJxxNz9Vc" target="_blank" rel="noopener noreferrer">
-            <div class="secondary-video-thumb">
-                <img src="https://i.ytimg.com/vi/ydyJxxNz9Vc/hqdefault.jpg" alt="Sunset Chasing video thumbnail" loading="lazy">
-                <span class="secondary-video-play" aria-hidden="true">▶</span>
-                <span class="secondary-video-duration">2:37</span>
-            </div>
-            <h4 class="secondary-video-title">Sunset Chasing</h4>
-        </a>
-
-        <a class="secondary-video-card" href="https://www.youtube.com/watch?v=kn6fWeLbFJ0" target="_blank" rel="noopener noreferrer">
-            <div class="secondary-video-thumb">
-                <img src="https://i.ytimg.com/vi/kn6fWeLbFJ0/hqdefault.jpg" alt="Hideout video thumbnail" loading="lazy">
-                <span class="secondary-video-play" aria-hidden="true">▶</span>
-                <span class="secondary-video-duration">1:52</span>
-            </div>
-            <h4 class="secondary-video-title">Hideout</h4>
-        </a>
-
-        <a class="secondary-video-card" href="https://www.youtube.com/watch?v=3RwyPDQPf48" target="_blank" rel="noopener noreferrer">
-            <div class="secondary-video-thumb">
-                <img src="https://i.ytimg.com/vi/3RwyPDQPf48/hqdefault.jpg" alt="Sun Cruiser video thumbnail" loading="lazy">
-                <span class="secondary-video-play" aria-hidden="true">▶</span>
-            </div>
-            <h4 class="secondary-video-title">Sun Cruiser</h4>
-        </a>
-    </div>
+    <p class="tv-help"><span id="tv-status" role="status">Press play to tune in.</span> <a id="tv-watch-link" href="https://www.youtube.com/watch?v=0QszPBcCZGM" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a></p>
+    <div class="tv-guide-heading"><h3>Pick your channel</h3><a href="https://www.youtube.com/@MoegMusic7801/videos" target="_blank" rel="noopener noreferrer">More on YouTube ↗</a></div>
+    <div class="tv-guide" role="group" aria-label="Moeg TV channels"></div>
+    <noscript><p>Watch the video above, or visit <a href="https://www.youtube.com/@MoegMusic7801/videos">Moeg on YouTube</a> for all videos. Enable JavaScript to change channels here.</p></noscript>
 </section>
 </div>
         </div>
@@ -2475,6 +2447,7 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
     }
   }
 }</style>
+<link rel="stylesheet" href="uploads/moeg-tv.css">
 </head>
 
 <body>
@@ -2493,6 +2466,7 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
   </label>
 
 </fieldset>
+<script src="uploads/moeg-tv.js" defer></script>
 </body>
 
 </html>
@@ -2829,5 +2803,6 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
 </div>
     
 		
-	</body>
+	<script src="uploads/moeg-tv.js" defer></script>
+</body>
 </html>
