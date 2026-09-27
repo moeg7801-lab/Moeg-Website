@@ -1,7 +1,8 @@
 (() => {
     'use strict';
     const root = document.querySelector('.moeg-tv');
-    if (!root) return;
+    if (!root || root.dataset.tvInitialized === 'true') return;
+    root.dataset.tvInitialized = 'true';
     // Add new channels here. Their order is also the continuous playback order.
     const videos = [
         { id: '0QszPBcCZGM', title: 'I Can Tell That We Are Going To Be Friends' },
