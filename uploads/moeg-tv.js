@@ -9,7 +9,8 @@
         { id: 'VrcF1EmcZLg', title: 'People of the Sun' },
         { id: 'ydyJxxNz9Vc', title: 'Sunset Chasing' },
         { id: 'kn6fWeLbFJ0', title: 'Hideout' },
-        { id: '3RwyPDQPf48', title: 'Sun Cruiser' }
+        { id: '3RwyPDQPf48', title: 'Sun Cruiser' },
+        { id: 'PaRleSO9AdQ', title: 'Let’s Slow All the Way Down' }
     ];
     let current = 0;
     let player;
