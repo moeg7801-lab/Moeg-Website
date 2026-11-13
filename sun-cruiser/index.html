@@ -101,8 +101,31 @@ const R=(x,y,w,h,c)=>{g.fillStyle=c;g.fillRect(Math.round(x),Math.round(y),w,h)}
 function spr(map,pal,x,y){map.forEach((row,j)=>{for(let i=0;i<row.length;i++){const c=pal[row[i]];if(c)R(x+i,y+j,1,1,c)}})}
 const NOTE=["..XXXXXXX","..XXXXXXX","..X.....X","..X.....X","..X.....X","XXX...XXX","XXX...XXX",".X.....X."];
 const HEART=[".XX.XX.","XXXXXXX","XXXXXXX",".XXXXX.","..XXX..","...X..."];
-const HEAD=["..KKKKK..",".KKKKKKK.","KKKKKKKKK",".KRRKRRK.",".sssssss.",".BBBBBBB.","..BBBBB..",".TTTTTTT."];
-const HP={K:'#15151a',R:'#ff5a1f',s:'#e8b08a',B:'#c2531f',T:'#b9bcc2'};
+const MOEG_DRIVER = [
+  '....KKKKKK.....',
+  '...KHHHKKKK....',
+  '...KHHPPKKK....',
+  '..KKKKKKKKKKKK.',
+  '...KSSSSSSSK...',
+  '...KKKKKKKKKK..',
+  '...KAKKAAAKK...',
+  '...KRRKRRRK....',
+  '....SSSSSSS....',
+  '....SBBBSBB....',
+  '....BBBBBBB....',
+  '.....BBDBB.....',
+  '......SSS......',
+  '....GGLSSG.....',
+  '...GLGGGSGSS...',
+  '...GLGGGGSSSSS.',
+  '...GGGGGGG.....',
+];
+const MOEG_DRIVER_PALETTE = {
+  K: '#15151a', H: '#34343c', P: '#e5dfd4', // Black cap and patch
+  A: '#fa7139', R: '#a52726', // Mirrored lenses
+  S: '#f4c3a7', B: '#bd572d', D: '#8f3924', // Skin and red beard
+  G: '#92959d', L: '#c5c7cb', // Grey tank top
+};
 const NC=['#ff8a3d','#f4c430','#1fb5b0'];
 function reset(){CX=62;TX=null;S={t:0,x:0,score:0,notes:0,hearts:3,spin:0,pops:[],shower:0,rain:[],rs:0,lv:1,lt:0,oldT:6,sp:100,lane:1,y:LANES[1],inv:0,items:[],spawn:1.2,combo:0,bill:2,billN:0,toast:'',toastT:0,shake:0,disc:18,bass:0};
 scene={front:[],back:[],bills:[],sand:[]};
@@ -121,7 +144,7 @@ function car(inv){const cx=CX,cy=S.y-Math.round(S.bass*2),t=S.t;
 R(cx-20,S.y+9,42,3,'rgba(0,0,0,.28)');if(S.spin>0){g.save();g.translate(cx,cy);g.scale(Math.cos(S.spin*14),1);g.translate(-cx,-cy)}
 R(cx-22,cy-6,44,13,'#d93a2b');R(cx+8,cy-6,14,3,'#ff6b57');R(cx-22,cy-6,8,2,'#ff6b57');R(cx-22,cy+4,44,3,'#a02318');
 R(cx-12,cy-9,16,6,'#f2e6c8');R(cx+4,cy-13,2,11,'#bfe8f2');R(cx-1,cy-6,1,12,'#a02318');
-spr(HEAD,HP,cx-8,cy-17);
+spr(MOEG_DRIVER,MOEG_DRIVER_PALETTE,cx-10,cy-24);
 const f=Math.floor(t*10)%2;R(cx-17,cy+5,9,6,'#1a1a1e');R(cx+9,cy+5,9,6,'#1a1a1e');R(cx-14,cy+7,3,2,f?'#ccc':'#888');R(cx+12,cy+7,3,2,f?'#888':'#ccc');
 R(cx+22,cy-3,2,8,'#ddd');R(cx+20,cy-4,2,2,'#ffe27a');R(cx-24,cy-2,2,8,'#ddd');if(S.spin>0)g.restore()}
 function item(it){const x=it.x,y=it.y;if(it.wait>0){const wx=it.k==='coco'?x:W-16;if(Math.floor(S.t*8)%2){R(wx-2,LANES[it.l]-8,4,10,'#ED4044');R(wx-2,LANES[it.l]+4,4,3,'#ED4044')}return}
