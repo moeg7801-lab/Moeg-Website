@@ -51,7 +51,6 @@
             padding: 0;
             font-family: 'Lato', sans-serif;
             background-color: #fdfbf7; /* Off-white paper color */
-            overflow-x: hidden;
             color: #333;
         }
 
@@ -69,9 +68,7 @@
         /* Parallax Engine */
         .parallax-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            inset: 0 0 auto;
             height: 100vh;
             pointer-events: none; /* Let clicks pass through to content */
             z-index: 0;
@@ -99,15 +96,27 @@
             position: relative;
             z-index: 10; /* Above the parallax background */
             min-height: 300vh; /* Make page scrollable */
+            overflow-x: clip;
         }
 
         .spacer {
             height: 100vh; /* First screen is just visuals */
         }
 
+        .palm-left {
+            top: 400px;
+            width: clamp(300px, 60%, 900px);
+        }
+
+        .palm-right {
+            top: 250px;
+            width: clamp(250px, 50%, 800px);
+        }
+
         /* Custom Wave Divider Style */
         .wave-divider {
             width: 1500px !important;
+            max-width: 100%;
             height: auto; 
             min-height: 50px;
             display: block;
@@ -259,28 +268,33 @@
             100% { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
         }
 		
-		/* mobile styles - devices 768px width and smaller */
-		@media (max-width: 768px) {
-    #mobile-menu-btn {
-        display: none;
-    }
-	.wave-divider {
-			width:100% !important;
-			}
-			.layer {
-			position:fixed !important;
-			}
-			.content-section {
-			width:100% !important;
-			}
-			
-			.palms {
-			width:100% !important;
-			}
-			.organic-shape {
-			display:none !important;
-			}
-}
+        @media (max-width: 768px) {
+            .parallax-container,
+            .spacer {
+                height: 100svh;
+            }
+
+            .palm-left {
+                top: auto;
+                bottom: -4%;
+                width: 62%;
+            }
+
+            .palm-right {
+                top: auto;
+                bottom: 16%;
+                width: 54%;
+            }
+
+            .wave-divider,
+            .content-section {
+                width: 100% !important;
+            }
+
+            .organic-shape {
+                display: none !important;
+            }
+        }
 
 		
 		/* mobile styles */
@@ -1034,6 +1048,7 @@
         
         /* Smooth Scroll Helper */
         html {
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 		
@@ -1044,7 +1059,14 @@
 
         /* Mobile Menu Transitions */
         #mobile-menu {
-            transition: transform 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0s 0.3s;
+        }
+        .menu-open #mobile-menu {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0s;
         }
         .menu-open {
             overflow: hidden;
@@ -1262,7 +1284,7 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
 </script>
 		
 		
-	<link rel="stylesheet" href="uploads/moeg-tv.css">
+	<link rel="stylesheet" href="uploads/moeg-tv.css?v=2">
 </head>
 	<body class=" wsite-page-index  full-width-body-off header-overlay-on alt-nav-off  wsite-theme-light"><!-- Navigation -->
     <nav class="flex justify-between items-center px-6 md:px-8 py-6 text-slate-800" id="navbar">
@@ -1289,21 +1311,20 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
         </div>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-2xl z-50 p-2 focus:outline-none" aria-label="Open Menu">
+        <button id="mobile-menu-btn" class="md:hidden text-2xl z-50 p-2 focus:outline-none" aria-label="Open Menu" aria-controls="mobile-menu" aria-expanded="false">
             ☰
         </button>
+    </nav>
 
-        <!-- Mobile Full Screen Menu Overlay -->
-        <!-- FIX: Added opacity-100 and isolate to ensure the white background is fully opaque and creates a clean stacking context above all background elements. -->
-        <div id="mobile-menu" class="fixed inset-0 bg-white opacity-100 z-[60] isolate transform translate-x-full flex flex-col items-center justify-center space-y-8 text-2xl serif">
+    <!-- Mobile Full Screen Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] isolate flex flex-col items-center justify-center space-y-8 text-2xl serif">
             <button id="close-menu-btn" class="absolute top-6 right-6 text-4xl text-slate-800 p-2" aria-label="Close Menu">&times;</button>
             <a href="#music" class="mobile-link hover:text-teal-600 transition">Music</a>
             <a href="sun-cruiser/" class="mobile-link hover:text-teal-600 transition">Game</a>
             <a href="#shop" class="mobile-link hover:text-teal-600 transition">Shop</a>
 			<a href="#social" class="mobile-link hover:text-teal-600 transition">Social</a>
             <a href="#contact" class="mobile-link hover:text-teal-600 transition">Contact</a>
-        </div>
-    </nav>
+    </div>
 
     <!-- Parallax Background System -->
     <div class="parallax-container">
@@ -1349,15 +1370,11 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
                 <img 
                     src="uploads/hawaii-palm-tree.png" 
                     alt="Left Palm Tree" 
+                    class="palm-left"
                     style="
                         position: absolute;
                         pointer-events: none;
                         left: -5%;
-                        bottom: 0px;
-                        top: 400px;
-                        width: 60%;
-                        max-width: 900px;
-                        min-width: 300px;
                         object-fit: contain;
                     "
                 >
@@ -1366,15 +1383,11 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
                 <img 
                     src="uploads/hawaii-palm-tree-withGrass.png" 
                     alt="Right Palm Tree" 
+                    class="palm-right"
                     style="
                         position: absolute;
                         pointer-events: none;
                         right: -5%;
-                        bottom: 0px;
-                        top: 250px;
-                        width: 50%;
-                        max-width: 800px;
-                        min-width: 250px;
                         object-fit: contain;
                     "
                 >
@@ -2186,7 +2199,7 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
 <hr class="styled-hr" style="width:100%;"></hr>
 <div style="height: 20px; overflow: hidden; width: 100%;"></div></div>
 
-<div class="paragraph" style="text-align:center;"><font color="#ffffff">Powered by Weebly, Built by <a href="https://www.morganmediacreations.com/" target="_blank">Morgan Media Creations</a></font></div>
+<div class="paragraph" style="text-align:center;"><font color="#ffffff">Built by <a href="https://www.morganmediacreations.com/" target="_blank">Morgan Media Creations</a></font></div>
 
 <div class="wsite-spacer" style="height:50px;"></div></div>
 
@@ -2381,24 +2394,11 @@ _W.setup_model_rpc({"rpc_namespace":"_W.Membership.RPC","model_namespace":"_W.Me
     // Mobile Menu Logic
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const closeBtn = document.getElementById('close-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const body = document.body;
     const mobileLinks = document.querySelectorAll('.mobile-link');
 
     function toggleMenu() {
-        const isOpen = !mobileMenu.classList.contains('translate-x-full');
-        
-        if (isOpen) {
-            // CLOSING THE MENU
-            mobileMenu.classList.add('translate-x-full');
-            body.classList.remove('menu-open');
-            mobileBtn.classList.remove('hidden'); // Show the menu button again
-        } else {
-            // OPENING THE MENU
-            mobileMenu.classList.remove('translate-x-full');
-            body.classList.add('menu-open');
-            mobileBtn.classList.add('hidden'); // Hide the menu button while menu is open
-        }
+        const isOpen = document.documentElement.classList.toggle('menu-open');
+        mobileBtn.setAttribute('aria-expanded', String(isOpen));
     }
 
     mobileBtn.addEventListener('click', toggleMenu);
